@@ -26,6 +26,6 @@ after_script:
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker image push "$DOCKER_USERNAME"/reverseproxy:v1
-  - docker image push "$DOCKER_USERNAME"/udagram-feed-restapi:v1
-  - docker image push "$DOCKER_USERNAME"/udagram-user-restapi:v1
+  - docker image push "$DOCKER_USERNAME"/udagram-api-feed:v1
+  - docker image push "$DOCKER_USERNAME"/udagram-api-user:v1
   - docker image push "$DOCKER_USERNAME"/udagram-frontend:v1
