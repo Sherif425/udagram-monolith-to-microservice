@@ -18,6 +18,6 @@ install:
 after_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker image push "$DOCKER_USERNAME"/reverseproxy:latest
-  - docker image push "$DOCKER_USERNAME"/udagram-feed-restapi:latest
-  - docker image push "$DOCKER_USERNAME"/udagram-user-restapi:latest
+  - docker image push "$DOCKER_USERNAME"/udagram-feed-api:latest
+  - docker image push "$DOCKER_USERNAME"/udagram-user-api:latest
   - docker image push "$DOCKER_USERNAME"/udagram-frontend:local
