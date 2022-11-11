@@ -10,16 +10,26 @@
 
 #udagram-frontend build
 - docker build -t udagram-frontend ./udagram-frontend
-#udagram-frontend tagging
-- docker tag udagram-frontend sherif425/udagram-frontend:v1
+language: minimal
 
-#reverseproxy build
-- docker build -t reverseproxy ./udagram-reverseproxy
-#reverseproxy tagging
-- docker tag reverseproxy sherif425/reverseproxy:v1
+services: docker
 
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push sherif425/udagram-api-feed:v1
-- docker push sherif425/reverseproxy:v1
-- docker push sherif425/udagram-frontend:v1
-- docker push sherif425/udagram-api-user:v1
+env:
+  - DOCKER_COMPOSE_VERSION=1.25.4
+
+before_install:
+  - docker -v && docker-compose -v
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker-compose -f docker-compose-build.yaml build --parallel
+
+after_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker image push "$DOCKER_USERNAME"/reverseproxy:latest
+  - docker image push "$DOCKER_USERNAME"/udagram-feed-restapi:latest
+  - docker image push "$DOCKER_USERNAME"/udagram-user-restapi:latest
+  - docker image push "$DOCKER_USERNAME"/udagram-frontend:local
