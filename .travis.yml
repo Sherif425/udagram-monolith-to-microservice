@@ -1,0 +1,25 @@
+#udagram-api-feed build
+- docker build -t udagram-api-feed ./udagram-api-feed
+#udagram-api-feed tagging
+- docker tag udagram-api-feed sherif425/udagram-api-feed:v1
+
+#udagram-api-user build
+- docker build -t udagram-api-user ./udagram-api-user
+#udagram-api-user tagging
+- docker tag udagram-api-user sherif425/udagram-api-user:v1
+
+#udagram-frontend build
+- docker build -t udagram-frontend ./udagram-frontend
+#udagram-frontend tagging
+- docker tag udagram-frontend sherif425/udagram-frontend:v1
+
+#reverseproxy build
+- docker build -t reverseproxy ./udagram-reverseproxy
+#reverseproxy tagging
+- docker tag reverseproxy sherif425/reverseproxy:v1
+
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker push sherif425/udagram-api-feed:v1
+- docker push sherif425/reverseproxy:v1
+- docker push sherif425/udagram-frontend:v1
+- docker push sherif425/udagram-api-user:v1
