@@ -17,7 +17,7 @@ before_install:
 install:
   - docker-compose -f docker-compose-build.yaml build --parallel
 
-after_script:
+script:
   - docker tag udagram-api-feed "$DOCKER_USERNAME"/udagram-api-feed:v1
   - docker tag udagram-api-user "$DOCKER_USERNAME"/udagram-api-user:v1
   - docker tag udagram-frontend:local "$DOCKER_USERNAME"/udagram-frontend:v1
